@@ -45,4 +45,26 @@ class VagaController extends Controller
     {
         return view('vagas.show', compact('vaga'));
     }
+
+    public function create()
+    {
+        return view('vagas.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'category_id' => 'required',
+            'location' => 'required',
+            'company' => 'required',
+            'is_closed' => 'required',
+
+        ]);
+
+        Vaga::create($validated);
+
+        return redirect()->route('vagas.create')->with('success', 'Vaga criada com sucesso!');
+    }
 }

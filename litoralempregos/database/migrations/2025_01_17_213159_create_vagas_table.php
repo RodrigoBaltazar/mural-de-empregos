@@ -18,6 +18,7 @@ return new class extends Migration
                 $table->text('description');
                 $table->foreignId('category_id')->constrained()->onDelete('cascade');
                 $table->string('location');
+                $table->string('company');
                 $table->boolean('is_closed')->default(false);
                 $table->timestamps();
             });

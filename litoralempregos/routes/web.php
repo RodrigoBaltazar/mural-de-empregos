@@ -8,9 +8,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('vagas', VagaController::class);
-Route::get('/vagass', [VagaController::class, 'index'])->name('vagas.index');
 
+//Vagas
+Route::resource('vagas', VagaController::class);
+Route::get('/vagas', [VagaController::class, 'index'])->name('vagas.index');
+
+Route::middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('vagas/create', [VagaController::class, 'create'])->name('vagas.create');
+    Route::post('vagas', [VagaController::class, 'store'])->name('vagas.store');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
